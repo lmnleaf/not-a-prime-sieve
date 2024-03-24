@@ -34,5 +34,5 @@ while attempts < 3 && (track_time != true && track_time != false)
 end
 
 checker = PrimeNumberChecker.new(number, track_time)
-checker.check_number
+puts checker.check_number
 

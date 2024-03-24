@@ -1,3 +1,5 @@
+require 'pry-byebug'
+
 class PrimeNumberChecker
   def initialize number, track_time
     @number = number
@@ -13,7 +15,7 @@ class PrimeNumberChecker
       prime_check
     end
   
-    puts "#{result}"
+    result
   end
 
   private
@@ -37,11 +39,28 @@ class PrimeNumberChecker
     end
   
     sum = digits.inject(0){ |sum, x| sum + x }
-    if passesFirstChecks == false && sum % 3 == 0
+    if sum % 3 == 0
       self.prime_factor = 3
       return
     end
   
+    check_any_prime_factors
+  end
+
+  def prime_check_with_time_calculation
+    start_time = Process.clock_gettime(Process::CLOCK_REALTIME)
+
+    prime_check
+
+    end_time = Process.clock_gettime(Process::CLOCK_REALTIME)
+
+    start_min = end_time.to_f * 1000
+    end_min = end_time.to_f * 1000
+
+    elapsed_time = end_min - start
+  end
+
+  def check_any_prime_factors
     # Failsd First Checks
     # set the values for the starting equation
     # 2((n - 3)/2) + 3 = n
@@ -67,25 +86,12 @@ class PrimeNumberChecker
     end
   end
 
-  def prime_check_with_time_calculation
-    start_time = Process.clock_gettime(Process::CLOCK_REALTIME)
-
-    prime_check
-
-    end_time = Process.clock_gettime(Process::CLOCK_REALTIME)
-
-    start_min = end_time.to_f * 1000
-    end_min = end_time.to_f * 1000
-
-    elapsed_time = end_min - start
-  end
-
   def result
     output = if prime == true
       "#{number} is prime"
     else
-      "#{number} is NOT prime \n
-      Prime factor: #{prime_factor}"
+      "#{number} is NOT prime \n" +
+      "Prime factor: #{prime_factor}"
     end
 
     if track_time
