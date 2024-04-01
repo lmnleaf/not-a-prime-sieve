@@ -4,13 +4,11 @@ This program looks for primes.
 
 However, unlike many programs that look for primes, it is not really a prime sieve. 
 
-While a prime sieve looks for all primes smaller than a given integer value, this _not-a-prime-sieve_ takes the integer value and determines whether or not it's prime without running it through a sieve.
+While a prime sieve looks for all primes smaller than a given integer value, _not-a-prime-sieve_ takes the integer value and determines whether or not it's prime without running it through a sieve.
 
 # <Line>
 
 ### How It Works
-
-**TLDR:**
 
 This _not-a-prime-sieve_ uses the following principles to identify primes:
 * Any non-prime integer greater than 3 can be expressed as the sum of 2s, 3s, or both.
@@ -21,14 +19,13 @@ This _not-a-prime-sieve_ uses the following principles to identify primes:
   1. the sum of only 3s (because then it would be evenly divisible by 3 and NOT prime) OR
   2. the sum of 2s and 3s such that there are an evenly distributed number of 2s and 3s in the expression (i.e., there will always be either one or two extra 2s in the expression).
 
-
-**LDR**
+# <Line>
 
 <details>
   <summary>More Info</summary>
   <br>
   
-More specifically, this _not-a-prime-sieve_ checks to see if an integer value can be expressed as the sum of 2s and 3s where there are an evenly distrubute number of 2s to 3s in the expression. Here's how:
+More specifically, _not-a-prime-sieve_ checks to see if an integer value can be expressed as the sum of 2s and 3s, where there are an evenly distrubuted number of 2s to 3s in the expression. Here's how:
 
 * Given an integer value greater than 0, it returns:
   * prime when the number is 2, 3, 5, or 7 and
@@ -139,7 +136,7 @@ More specifically, this _not-a-prime-sieve_ checks to see if an integer value ca
     </details>
 
   - <details>
-    <summary>Example 2: Primee</summary>
+    <summary>Example 2: Prime</summary>
     <br>
     
     **Integer Value to Test: 79**
@@ -202,8 +199,43 @@ More specifically, this _not-a-prime-sieve_ checks to see if an integer value ca
      2(29) + 2(3) + 3(5) = 79     -> exchange 2s for 3s
      2(29) + 7(3) = 79            -> new number of 2s and 3s
 
-     29/4 = 4  1/4                -> not evenly distributed
+     29/7 = 4 1/7                 -> not evenly distributed
      ```
+
+     ```
+     2(26) + 2(3) + 7(3) = 79     -> exchange 2s for 3s
+     2(26) + 9(3) = 79            -> new number of 2s and 3s
+
+     26/9 = 2 8/9                 -> not evenly distributed
+     ```
+
+     ```
+     2(23) + 2(3) + 9(3) = 79     -> exchange 2s for 3s
+     2(23) + 11(3) = 79           -> new number of 2s and 3s
+
+     23/11 = 2 1/11               -> not evenly distributed
+     ```
+
+     ```
+     2(20) + 2(3) + 11(3) = 79    -> exchange 2s for 3s
+     2(20) + 13(3) = 79           -> new number of 2s and 3s
+
+     20/13 = 1 7/13               -> not evenly distributed
+     ```
+
+     ```
+     2(17) + 2(3) + 13(3) = 79    -> exchange 2s for 3s
+     2(17) + 15(3) = 79           -> new number of 2s and 3s
+
+     17/15 = 1 2/15               -> not evenly distributed
+     ```
+
+     ```
+     2(14) + 2(3) + 15(3) = 79
+     2(14) + 17(3)
+     ```
+     
+     Stop: no need to continue evaluating because now there are fewer 2s than 3s, so there cannot be an even distributionof 2s to 3s.
 
      79 is prime. 
 
@@ -212,3 +244,18 @@ More specifically, this _not-a-prime-sieve_ checks to see if an integer value ca
   
   <br>
 </details>
+
+<details>
+  <summary>Notes</summary>
+  <br>
+
+  * As written, the #other_prime_factors? method will accurately return 7 and 5 as primee, but more as a fluke of the way it is written than because of the principle, since as written, the script implicitly assumes that all odd integers that will be evaluated are greater than 9 and can therefore be expressed as the sum of at least three 3s. Given this, I opted to check for 5 and 7 in the #easy_prime? method.
+  * Handling odd integers evenly divisible by 3 or 5 with other checks is for simplicity's sake.
+  * Writing _not-a-prime-sieve_ is part of my process for investigating the Beal Conjecture and Collatz Conjecture, two seemingly simple math problems that have yet to be solved, one all about shared prime factors and the other about sequential operations done with 2s and 3s.
+  * _not-a-prime-sieve_ is written in Ruby because that's the language I worked in as a software engineer - my primary goal was to get the logic down and be able to run the check on at least some integers. At some point, I plan to rewrite _not-a-prime-sieve_ in Java or some other language that's better suited for performing lengthy mathematical calclations on large numbers.
+
+  <br>
+</details>
+
+----
+
