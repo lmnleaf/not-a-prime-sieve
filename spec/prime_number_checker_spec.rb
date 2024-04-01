@@ -30,6 +30,34 @@ RSpec.describe 'PrimeNumberChecker' do
         checker.check_prime
       end
     end
+
+    describe 'when the number is 5' do
+      let (:test_number) { 5 }
+
+      it 'outputs prime and no prime factors' do
+        expect(checker.check_prime).to eq({ prime: true, prime_factor: nil })
+      end
+
+      it 'does not attempt to check for additional prime factors' do
+        expect(checker).not_to receive(:easy_prime_factors?)
+        expect(checker).not_to receive(:other_prime_factors?)
+        checker.check_prime
+      end
+    end
+
+    describe 'when the number is 7' do
+      let (:test_number) { 7 }
+
+      it 'outputs prime and no prime factors' do
+        expect(checker.check_prime).to eq({ prime: true, prime_factor: nil })
+      end
+
+      it 'does not attempt to check for additional prime factors' do
+        expect(checker).not_to receive(:easy_prime_factors?)
+        expect(checker).not_to receive(:other_prime_factors?)
+        checker.check_prime
+      end
+    end
   end
 
   describe 'easy prime factors' do

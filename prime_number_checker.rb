@@ -23,13 +23,16 @@ class PrimeNumberChecker
   private
 
   def easy_prime?
-    integer_value == 2 || integer_value == 3 ? true : false
+    integer_value == 2 ||
+    integer_value == 3 ||
+    integer_value == 5 ||
+    integer_value == 7
   end
 
   def easy_prime_factors?
     digits = integer_value.digits
     units = digits.first
-  
+
     if [0, 2, 4, 6, 8].include?(units)
       self.prime_factor = 2
     end
@@ -47,7 +50,7 @@ class PrimeNumberChecker
   end
 
   def other_prime_factors?
-    # Failsd First Checks
+    # Failed First Checks
     # set the values for the starting equation
     # 2((n - 3)/2) + 3 = n
     # 2(n - 3)/2) - 3) + 2(3) + 3 = n
@@ -58,7 +61,7 @@ class PrimeNumberChecker
     a = (r/2 - 3)
     b = 3
 
-    while a >= b/2
+    while a >= b
       if a % b != 0
         a -= 3
         b += 2
