@@ -242,17 +242,16 @@ More specifically, _not-a-prime-sieve_ checks to see if an integer value can be 
   <br>
   </details>
   
-  <br>
 </details>
 
 <details>
   <summary>Notes</summary>
   <br>
 
-  * As written, the #other_prime_factors? method will accurately return 7 and 5 as primee, but more as a fluke of the way it is written than because of the principle, since as written, the script implicitly assumes that all odd integers that will be evaluated are greater than 9 and can therefore be expressed as the sum of at least three 3s. Given this, I opted to check for 5 and 7 in the #easy_prime? method.
+  * As written, `#other_prime_factors?` will accurately identify 5 and 7 as prime, but more as a fluke in the way it is written than because of the principle. As written, the method implicitly assumes that all odd integers to be evaluated can be expressed as the sum of at least three 3s. Given this, I opted to check 5 and 7 in the #easy_prime? method instead.
   * Handling odd integers evenly divisible by 3 or 5 with other checks is for simplicity's sake.
-  * Writing _not-a-prime-sieve_ is part of my process for investigating the Beal Conjecture and Collatz Conjecture, two seemingly simple math problems that have yet to be solved, one all about shared prime factors and the other about sequential operations done with 2s and 3s.
-  * _not-a-prime-sieve_ is written in Ruby because that's the language I worked in as a software engineer - my primary goal was to get the logic down and be able to run the check on at least some integers. At some point, I plan to rewrite _not-a-prime-sieve_ in Java or some other language that's better suited for performing lengthy mathematical calclations on large numbers.
+  * I wrote _not-a-prime-sieve_ as part of my investigation into the [Beal](https://en.wikipedia.org/wiki/Beal_conjecture) and [Collatz](https://en.wikipedia.org/wiki/Collatz_conjecture) conjectures. Both conjectures are seemingly simple math problems that have yet to be solved. The first is about shared prime factors and the second is about sequential operations done with 2s and 3s. Identifying the principles guiding the _not-a-prime-sieve_ calculations along with writing the calculations themselves has been a way for me to understand both primes and the behavior of 2s and 3s a bit more.
+  * I wrote _not-a-prime-sieve_ in Ruby because that's the language I know best - my primary goal was to get the logic written down and to run the check on at least some integers. At some point, I plan to rewrite _not-a-prime-sieve_ in Java or some other language that's better suited for performing lengthy mathematical calclations on large numbers.
 
   <br>
 </details>
