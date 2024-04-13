@@ -1,104 +1,76 @@
 require 'pry-byebug'
 
 class PrimeNumberChecker
-  def initialize number, track_time
-    @number = number
-    @track_time = track_time
+  def initialize integer_value
+    @integer_value = integer_value
+    @prime_factor = nil
   end
 
-  attr_accessor :number, :prime, :prime_factor, :elapsed_time, :track_time
+  attr_accessor :integer_value, :prime_factor
 
-  def check_number
-    if track_time
-      prime_check_with_time_calculation
-    else
-      prime_check
+  def check_prime
+    if easy_prime?
+      return { prime: true, prime_factor: nil }
     end
-  
-    result
+
+    if easy_prime_factors? || other_prime_factors?
+      return { prime: false, prime_factor: prime_factor }
+    end
+
+    { prime: true, prime_factor: nil }
   end
 
   private
 
-  def prime_check
-    return true if number == 2 || number == 3
-  
-    self.prime = false
-  
-    digits = number.digits
+  def easy_prime?
+    integer_value == 2 ||
+    integer_value == 3 ||
+    integer_value == 5 ||
+    integer_value == 7
+  end
+
+  def easy_prime_factors?
+    digits = integer_value.digits
     units = digits.first
-  
+
     if [0, 2, 4, 6, 8].include?(units)
       self.prime_factor = 2
-      return
     end
   
     if units == 5
       self.prime_factor = 5
-      return
     end
-  
+
     sum = digits.inject(0){ |sum, x| sum + x }
-    if sum % 3 == 0
+    if prime_factor.nil? && sum % 3 == 0
       self.prime_factor = 3
-      return
     end
-  
-    check_any_prime_factors
+
+    !prime_factor.nil? ? true : false
   end
 
-  def prime_check_with_time_calculation
-    start_time = Process.clock_gettime(Process::CLOCK_REALTIME)
-
-    prime_check
-
-    end_time = Process.clock_gettime(Process::CLOCK_REALTIME)
-
-    start_min = end_time.to_f * 1000
-    end_min = end_time.to_f * 1000
-
-    elapsed_time = end_min - start
-  end
-
-  def check_any_prime_factors
-    # Failsd First Checks
+  def other_prime_factors?
+    # Failed First Checks
     # set the values for the starting equation
     # 2((n - 3)/2) + 3 = n
     # 2(n - 3)/2) - 3) + 2(3) + 3 = n
     # 2((n - 3/2) - 3) + 3(3) = n
     # 2(a) + 3(b) = n
-    r = number - 3
+
+    r = integer_value - 3
     a = (r/2 - 3)
     b = 3
 
-    prime = false
-
-    while a >= b/2
+    while a >= b
       if a % b != 0
-        prime = true
         a -= 3
         b += 2
       else
-        prime = false
         self.prime_factor = (a/b * 2) + 3
         break
       end
     end
-  end
 
-  def result
-    output = if prime == true
-      "#{number} is prime"
-    else
-      "#{number} is NOT prime \n" +
-      "Prime factor: #{prime_factor}"
-    end
-
-    if track_time
-      output = output + 
-        "\n Elapsed Time: #{elapsed_time}"
-    end
-
-    output
+    prime_factor.nil? ? false : true
   end
 end
